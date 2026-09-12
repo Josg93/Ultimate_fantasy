@@ -37,6 +37,8 @@ class BattleEntity(Entity):
         self.magic: float = self.base_magic
 
         self.current_hp: float = self.hp
+        self.rest_time: float = definition.get("rest_time", 4.0)
+        self.current_rest: float = 0.0
 
     def damage(self, amount: float) -> None:
         self.current_hp -= amount

@@ -138,6 +138,16 @@ class BattleState(BaseState):
                 color=pygame.Color(189, 32, 32),
                 theme=BAR_THEME,
             )
+            character.rest_bar = ProgressBar(
+                character.x - (width - character.width) / 2,
+                character.y - 14,
+                width,
+                3,
+                value=character.current_rest,
+                max_value=character.rest_time,
+                color=pygame.Color(255, 105, 180),
+                theme=BAR_THEME,
+            )
             character.exp_bar = ProgressBar(
                 character.x - (width - character.width) / 2,
                 character.y - 6,
@@ -159,6 +169,16 @@ class BattleState(BaseState):
                 value=enemy.current_hp,
                 max_value=enemy.hp,
                 color=pygame.Color(189, 32, 32),
+                theme=BAR_THEME,
+            )
+            enemy.rest_bar = ProgressBar(
+                enemy.x - (width - enemy.width) / 2,
+                enemy.y - 14,
+                width,
+                3,
+                value=enemy.current_rest,
+                max_value=enemy.rest_time,
+                color=pygame.Color(255, 105, 180),
                 theme=BAR_THEME,
             )
 
@@ -194,6 +214,8 @@ class BattleState(BaseState):
             )
 
         def open_menu() -> None:
+            from src.states.game.BattleMenuState import BattleMenuState
+
             self.state_machine.push(BattleMenuState(self.state_machine), battle_state=self)
 
         self.state_machine.push(
@@ -211,11 +233,13 @@ class BattleState(BaseState):
             if not enemy.dead:
                 enemy.render(surface)
                 enemy.energy_bar.render(surface)
+                enemy.rest_bar.render(surface)
 
         for character in self.party.characters.values():
             if not character.dead:
                 character.render(surface)
                 character.energy_bar.render(surface)
+                character.rest_bar.render(surface)
                 character.exp_bar.render(surface)
 
         self.bottom_panel.render(surface)

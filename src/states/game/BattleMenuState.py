@@ -32,11 +32,11 @@ class BattleMenuState(BaseState):
         )
 
     def _fight(self) -> None:
-        from src.states.game.TakeTurnState import TakeTurnState
+        from src.states.game.ActiveTurnState import ActiveTurnState
 
         self.state_machine.pop()
         self.state_machine.push(
-            TakeTurnState(self.state_machine), battle_state=self.battle_state
+            ActiveTurnState(self.state_machine), battle_state=self.battle_state
         )
 
     def _run(self) -> None:
