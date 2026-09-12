@@ -18,7 +18,7 @@ from gale.state import BaseState
 from gale.timer import Timer
 
 import settings
-from src.gui.Menu import Menu
+from src.gui.TransparentMenu import TransparentMenu
 
 
 class SelectActionState(BaseState):
@@ -34,7 +34,7 @@ class SelectActionState(BaseState):
         ]
         items.append(("Nothing", self._nothing))
 
-        self.menu = Menu(
+        self.menu = TransparentMenu(
             0, settings.VIRTUAL_HEIGHT - 64, settings.VIRTUAL_WIDTH, 64, items=items
         )
 

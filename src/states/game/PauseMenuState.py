@@ -27,11 +27,12 @@ class PauseMenuState(BaseState):
 
         self.menu = Menu(
             settings.VIRTUAL_WIDTH / 2 - 60,
-            settings.VIRTUAL_HEIGHT / 2 - 36,
+            settings.VIRTUAL_HEIGHT / 2 - 48,
             120,
-            72,
+            96,
             items=[
                 ("Continuar", self.close),
+                ("Estado equipo", self._show_team_details),
                 ("Guardar partida", self._save),
                 ("Salir", self._quit),
             ],
@@ -40,6 +41,11 @@ class PauseMenuState(BaseState):
 
     def close(self) -> None:
         self.state_machine.pop()
+
+    def _show_team_details(self) -> None:
+        from src.states.game.TeamDetailsState import TeamDetailsState
+
+        self.state_machine.push(TeamDetailsState(self.state_machine), self.play_state)
 
     def _save(self) -> None:
         from src.states.game.ShowTextState import ShowTextState
